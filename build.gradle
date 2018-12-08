@@ -19,8 +19,10 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
         jcenter()
+            // ...
+            google() // Google's Maven repository
+
     }
 }
 

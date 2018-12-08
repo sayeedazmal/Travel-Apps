@@ -28,8 +28,12 @@ private Button createEventEt;
 
 private DatabaseReference rootref;
 private DatabaseReference userRef;
+private DatabaseReference eventRef;
+private DatabaseReference eventIdRef;
+
 private FirebaseAuth auth;
 private FirebaseUser user;
+
 
     public CreateEvent() {
         // Required empty public constructor
@@ -42,9 +46,8 @@ private FirebaseUser user;
         user = auth.getCurrentUser();
         rootref = FirebaseDatabase.getInstance().getReference();
         userRef = rootref.child("Users");
-
-
-
+        eventRef = userRef.child("event");
+        eventIdRef = eventRef.child(user.getUid());
 
     }
 
@@ -52,29 +55,45 @@ private FirebaseUser user;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
        View view = inflater.inflate(R.layout.fragment_create_event, container, false);
-
        nameEt = view.findViewById(R.id.enameEt);
        locationEt = view.findViewById(R.id.elocationEt);
        destinationEt = view.findViewById(R.id.edestEt);
        dateEt = view.findViewById(R.id.edateEt);
        budgetEt = view.findViewById(R.id.ebudgetEt);
 
-      createEventEt = view.findViewById(R.id.createEventbtn);
 
-      createEventEt.setOnClickListener(new View.OnClickListener() {
+
+
+       createEventEt = view.findViewById(R.id.createEventbtn);
+       createEventEt.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
               String name = nameEt.getText().toString();
-              String locations = locationEt.getText().toString();
+              String locate = locationEt.getText().toString();
               String destination = destinationEt.getText().toString();
               String date = dateEt.getText().toString();
+              int budget = Integer.parseInt(budgetEt.getText().toString());
 
-              EventInfo eventInfo = new EventInfo(name,locations,destination,date);
+             try{
+                 if(name.isEmpty() || locate.isEmpty() || destination.isEmpty() || date.isEmpty() || String.valueOf(budget).isEmpty()){
+                     Toast.makeText(getActivity(),"invalide field",Toast.LENGTH_LONG).show();
 
-              userRef.child(user.getUid()).setValue(eventInfo);
-              Toast.makeText(getActivity(),"success",Toast.LENGTH_SHORT).show();
+                 }else{
 
+                     String keyId = eventIdRef.push().getKey();
+                     EventInfo eventInfo = new EventInfo(keyId,name,locate,destination,date,budget);
+                     eventIdRef.child(keyId).setValue(eventInfo);
+                     nameEt.setText(null);
+                     locationEt.setText(null);
+                     destinationEt.setText(null);
+                     dateEt.setText(null);
+                     budgetEt.setText(null);
+                     Toast.makeText(getActivity(),"success",Toast.LENGTH_SHORT).show();
+                 }
 
+             }catch (Exception e){
+                 Toast.makeText(getActivity(),""+e,Toast.LENGTH_SHORT).show();
+             }
           }
       });
 
