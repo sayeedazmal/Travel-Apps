@@ -7,6 +7,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class MainActivity extends AppCompatActivity implements LoginFragment.UserAuthentication {
 
     private FragmentManager manager;
@@ -16,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Use
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         manager = getSupportFragmentManager();
+
         LoginFragment loginFragment = new LoginFragment();
         FragmentTransaction ft = manager.beginTransaction();
         ft.add(R.id.fragmentContainer, loginFragment);
@@ -24,11 +28,16 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Use
 
 
 
+
     @Override
     public void onAuthComplete(){
-        NearbyFragment nearbyFragment = new NearbyFragment();
-        manager.beginTransaction().replace(R.id.fragmentContainer,nearbyFragment).commit();
-        //SignupFragment signupFragment = new SignupFragment();
-        //manager.beginTransaction().replace(R.id.fragmentContainer,signupFragment).commit();
+        SignupFragment signupFragment = new SignupFragment();
+        manager.beginTransaction().replace(R.id.fragmentContainer,signupFragment).commit();
+    }
+
+    @Override
+    public void onloginAuth() {
+        CreateEvent createEvent = new CreateEvent();
+        manager.beginTransaction().replace(R.id.fragmentContainer,createEvent).commit();
     }
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CreateEvent">
+
+    <EditText
+        android:id="@+id/enameEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Event name"
+        android:gravity="center"/>
+    <EditText
+        android:id="@+id/elocationEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="your Starting Location"
+        android:gravity="center"/>
+    <EditText
+        android:id="@+id/edestEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Your Destination"
+        android:gravity="center"/>
+    <EditText
+        android:id="@+id/edateEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Departure Date"
+        android:gravity="center"/>
+
+    <EditText
+        android:id="@+id/ebudgetEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Your Estimated Budget"
+        android:gravity="center"/>
+
+    <Button
+        android:id="@+id/createEventbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Event"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:padding="20dp"/>
+
+
+</LinearLayout>

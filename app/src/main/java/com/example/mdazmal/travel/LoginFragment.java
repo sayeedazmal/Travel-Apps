@@ -68,22 +68,26 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 String email = emailET.getText().toString();
                 String password = passET.getText().toString();
-                auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(context, "login successfull", Toast.LENGTH_SHORT).show();
-                            emailET.setText(" ");
-                            passET.setText(" ");
-                            listener.onAuthComplete();
+                if (email.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(context, "Please Enter all info...", Toast.LENGTH_SHORT).show();
+                } else {
+                    auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(context, "login successfull", Toast.LENGTH_SHORT).show();
+                                emailET.setText(null);
+                                passET.setText(null);
+                                listener.onloginAuth();
+                            }
                         }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(context, "Faile login "+ e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
 
             }
 
@@ -93,7 +97,7 @@ public class LoginFragment extends Fragment {
         signupBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //listener.onAuthComplete();
+                listener.onAuthComplete();
             }
         });
 
@@ -102,6 +106,7 @@ public class LoginFragment extends Fragment {
 
     interface UserAuthentication{
         void onAuthComplete();
+        void onloginAuth();
     }
 
 }

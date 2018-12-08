@@ -55,25 +55,30 @@ public class SignupFragment extends Fragment {
                 String email = emailET.getText().toString();
                 String password = passET.getText().toString();
 
-                firebaseAuth.createUserWithEmailAndPassword(email,password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(getActivity(),"successfull load to database",Toast.LENGTH_SHORT).show();
-                            nameET.setText(" ");
-                            emailET.setText(" ");
-                            phoneET.setText(" ");
-                            passET.setText(" ");
+                if(name.isEmpty()||email.isEmpty()||password.isEmpty()){
+                    Toast.makeText(getActivity(),"please fill up the blank space",Toast.LENGTH_SHORT).show();
+                }else {
+                    firebaseAuth.createUserWithEmailAndPassword(email,password)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(getActivity(),"successfull load to database",Toast.LENGTH_SHORT).show();
+                                        nameET.setText(null);
+                                        emailET.setText(null);
+                                        phoneET.setText(null);
+                                        passET.setText(null);
 
+                                    }
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_SHORT).show();
                         }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getActivity(),"fail" +e.getMessage(),Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    });
+                }
+
             }
         });
         return view;
