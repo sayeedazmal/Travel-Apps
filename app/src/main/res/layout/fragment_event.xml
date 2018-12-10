@@ -6,6 +6,17 @@
     tools:context=".Event"
     android:background="@color/blueAccent">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/signoutbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Signout"/>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="52dp"

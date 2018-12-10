@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity implements LoginFragment.UserAuthentication {
+public class MainActivity extends AppCompatActivity implements LoginFragment.UserAuthentication, Event.EventAuth {
 
     private FragmentManager manager;
 
@@ -19,25 +19,43 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Use
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         manager = getSupportFragmentManager();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
 
-        LoginFragment loginFragment = new LoginFragment();
-        FragmentTransaction ft = manager.beginTransaction();
-        ft.add(R.id.fragmentContainer, loginFragment);
-        ft.commit();
+        Fragment fragment = null;
+        if(user !=null){
+            fragment = new Event();
+            FragmentTransaction ft = manager.beginTransaction();
+            ft.add(R.id.fragmentContainer, fragment);
+            ft.commit();
+        }else{
+            fragment = new LoginFragment();
+            FragmentTransaction ft = manager.beginTransaction();
+            ft.add(R.id.fragmentContainer, fragment);
+            ft.commit();
+        }
+
+
     }
-
-
 
 
     @Override
     public void onAuthComplete(){
         SignupFragment signupFragment = new SignupFragment();
-        manager.beginTransaction().replace(R.id.fragmentContainer,signupFragment).commit();
+        manager.beginTransaction().replace(R.id.fragmentContainer,signupFragment).addToBackStack("signup").commit();
+
     }
 
     @Override
     public void onloginAuth() {
+        Event event = new Event();
+        manager.beginTransaction().replace(R.id.fragmentContainer,event).addToBackStack("event").commit();
+    }
+
+    @Override
+    public void eventauth() {
         CreateEvent createEvent = new CreateEvent();
-        manager.beginTransaction().replace(R.id.fragmentContainer,createEvent).commit();
+        manager.beginTransaction().replace(R.id.fragmentContainer,createEvent).addToBackStack("create Event").commit();
+
     }
 }

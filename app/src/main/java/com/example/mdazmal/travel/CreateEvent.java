@@ -34,6 +34,9 @@ private DatabaseReference eventIdRef;
 private FirebaseAuth auth;
 private FirebaseUser user;
 
+//recycler view
+
+
 
     public CreateEvent() {
         // Required empty public constructor
