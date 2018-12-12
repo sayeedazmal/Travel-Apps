@@ -1,6 +1,7 @@
 package com.example.mdazmal.travel;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -43,6 +44,11 @@ private DatabaseReference eventIdRef;
 private FirebaseAuth auth;
 private FirebaseUser user;
 
+private List<String>eventlist=new ArrayList<>();
+private EventAdapter adapter;
+private createEvent listener;
+
+
 
 //recycler view
 
@@ -63,6 +69,8 @@ private FirebaseUser user;
         eventIdRef = eventRef.child(user.getUid());
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -74,9 +82,9 @@ private FirebaseUser user;
        budgetEt = view.findViewById(R.id.ebudgetEt);
 
 
-
         createEventBtn = view.findViewById(R.id.createEventbtn);
-       createEventBtn.setOnClickListener(new View.OnClickListener() {
+
+        createEventBtn.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
               String name = nameEt.getText().toString();
@@ -100,12 +108,15 @@ private FirebaseUser user;
                      dateEt.setText(null);
                      budgetEt.setText(null);
                      Toast.makeText(getActivity(),"success",Toast.LENGTH_SHORT).show();
+                     eventlist.add(eventInfo.getName());
+
                  }
 
              }catch (Exception e){
                  Toast.makeText(getActivity(),""+e,Toast.LENGTH_SHORT).show();
              }
           }
+
       });
 
 
@@ -113,4 +124,7 @@ private FirebaseUser user;
         return view;
     }
 
+    interface createEvent{
+        void authCreate();
+    }
 }

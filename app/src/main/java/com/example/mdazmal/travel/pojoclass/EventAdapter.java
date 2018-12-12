@@ -12,6 +12,8 @@ import android.view.ViewParent;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.mdazmal.travel.CreateEvent;
+import com.example.mdazmal.travel.Event;
 import com.example.mdazmal.travel.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,10 +23,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.List;
 import java.util.zip.Inflater;
 
-public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
+    public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
     private Context context;
-    private List<EventInfo> eventinfo;
 
+    private List<EventInfo> eventinfo;
 
     public EventAdapter(Context context, List<EventInfo> eventinfo) {
         this.context = context;
@@ -33,31 +35,24 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
     @NonNull
     @Override
-    public EventViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(context)
-                .inflate(R.layout.eventview,viewGroup,false);
-        return new EventViewHolder(v);
-    }
+        public EventViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            View v = LayoutInflater.from(context)
+                    .inflate(R.layout.eventview,viewGroup,false);
+            EventViewHolder EVH = new EventViewHolder(v);
+            return EVH;
+        }
 
     @Override
     public void onBindViewHolder(@NonNull EventViewHolder eventViewHolder, int i) {
-        eventViewHolder.evenTv.setText(eventinfo.get(i).getName() );
+       eventViewHolder.evenTv.setText(eventinfo.get(i).getName());
     }
+
     @Override
     public int getItemCount() {
-
         return eventinfo.size();
     }
 
-    class EventViewHolder extends RecyclerView.ViewHolder{
-            TextView evenTv;
-        public EventViewHolder(@NonNull View itemView) {
-            super(itemView);
 
-            evenTv = itemView.findViewById(R.id.row_event);
-
-        }
-    }
 
     public void updateList(List<EventInfo> eventinfo){
             this.eventinfo = eventinfo;

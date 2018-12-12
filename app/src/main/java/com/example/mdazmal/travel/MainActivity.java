@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity implements LoginFragment.UserAuthentication, Event.EventAuth {
+public class MainActivity extends AppCompatActivity implements LoginFragment.UserAuthentication, Event.EventAuth,CreateEvent.createEvent {
 
     private FragmentManager manager;
 
@@ -57,5 +57,11 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Use
         CreateEvent createEvent = new CreateEvent();
         manager.beginTransaction().replace(R.id.fragmentContainer,createEvent).addToBackStack("create Event").commit();
 
+    }
+
+    @Override
+    public void authCreate() {
+        Event eventpage = new Event();
+        manager.beginTransaction().replace(R.id.fragmentContainer,eventpage).addToBackStack("create Event").commit();
     }
 }
