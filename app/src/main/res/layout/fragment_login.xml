@@ -108,6 +108,22 @@
             android:shadowDy="0"
             android:shadowRadius="0"
             />
+        <Button
+            android:id="@+id/weatherBtn"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:text="Weather"
+            android:textColor="#ffffff"
+            android:textSize="24sp"
+            android:textAllCaps="false"
+            android:layout_width="168dp"
+            android:layout_height="43dp"
+            android:background="@drawable/signupshape"
+            android:shadowColor="#5F4496"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="0"
+            />
     </LinearLayout>
 
 

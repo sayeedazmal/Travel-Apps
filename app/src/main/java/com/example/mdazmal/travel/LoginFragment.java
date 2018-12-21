@@ -2,6 +2,7 @@ package com.example.mdazmal.travel;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,9 +26,10 @@ import com.google.firebase.database.FirebaseDatabase;
 public class LoginFragment extends Fragment {
 
     private EditText emailET, passET;
-    private Button loginBTN, signupBTN;
+    private Button loginBTN, signupBTN,weatherBtn;
     private Context context;
     private UserAuthentication listener;
+
 
     private FirebaseAuth auth;
     @Nullable private FirebaseUser currentUser;
@@ -61,6 +63,8 @@ public class LoginFragment extends Fragment {
         passET= view.findViewById(R.id.passInput);
         loginBTN= view.findViewById(R.id.loginBtn);
         signupBTN= view.findViewById(R.id.signupBtn);
+        weatherBtn = view.findViewById(R.id.weatherBtn);
+
 
 
         loginBTN.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +104,13 @@ public class LoginFragment extends Fragment {
                 listener.onAuthComplete();
             }
         });
+        weatherBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), WeatherActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
@@ -107,6 +118,7 @@ public class LoginFragment extends Fragment {
     interface UserAuthentication{
         void onAuthComplete();
         void onloginAuth();
+
     }
 
 }

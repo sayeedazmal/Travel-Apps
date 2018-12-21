@@ -8,6 +8,9 @@ public class EventInfo {
     private String date;
     private double budget;
 
+    public EventInfo(){
+
+    }
     public EventInfo(String eventId,String name, String location, String destination, String date, double budget) {
         this.eventId = eventId;
         this.name = name;

@@ -60,6 +60,12 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Use
     }
 
     @Override
+    public void signoutAuth() {
+        LoginFragment loginFragment = new LoginFragment();
+        manager.beginTransaction().replace(R.id.fragmentContainer,loginFragment).addToBackStack("signout").commit();
+    }
+
+    @Override
     public void authCreate() {
         Event eventpage = new Event();
         manager.beginTransaction().replace(R.id.fragmentContainer,eventpage).addToBackStack("create Event").commit();
