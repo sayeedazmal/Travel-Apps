@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.example.mdazmal.travel.Expenditure;
 import com.example.mdazmal.travel.R;
 import java.util.List;
 
@@ -50,17 +52,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull EventViewHolder eventViewHolder, final int i) {
        eventViewHolder.evenTv.setText(eventinfo.get(i).getName());
-       eventViewHolder.evenTv.setOnClickListener(new View.OnClickListener() {
+       eventViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               String name = eventinfo.get(i).getName();
-               String located = eventinfo.get(i).getLocation();
-               String destination = eventinfo.get(i).getDestination();
-               String date = eventinfo.get(i).getDate();
-               String budget = String.valueOf(eventinfo.get(i).getBudget());
-               eventpasslistener.geteventDialog(name,located,destination,date,budget);
-              // eventdialoglistener.showeventdialog();
-
+               AppCompatActivity activity = (AppCompatActivity) v.getContext();
+               Fragment myfragment = new Expenditure();
+               activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,myfragment).addToBackStack(null).commit();
            }
        });
 
