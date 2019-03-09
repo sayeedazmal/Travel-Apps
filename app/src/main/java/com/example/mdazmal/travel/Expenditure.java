@@ -1,6 +1,8 @@
 package com.example.mdazmal.travel;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,6 +20,7 @@ import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ExpandableListView.OnGroupCollapseListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mdazmal.travel.pojoclass.ExpendablelistviewAdapter;
@@ -39,7 +42,7 @@ public class Expenditure extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.expenditure, container, false);
@@ -93,16 +96,66 @@ public class Expenditure extends Fragment {
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
                 // TODO Auto-generated method stub
-                Toast.makeText(
-                       getActivity(),
-                        listDataHeader.get(groupPosition)
-                                + " : "
-                                + listDataChild.get(
-                                listDataHeader.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT)
-                        .show();
+                switch (listDataHeader.get(groupPosition)){
+
+                    case "Expenditure":
+                        switch (childPosition){
+                            case 0:
+                                dialoguebox();
+                                break;
+                            case 1:
+                                dialoguebox();
+                                break;
+                            case 2:
+                                dialoguebox();
+                                break;
+                            default:
+                        }
+                        break;
+
+                    case "Moment":
+
+                        break;
+                    case "More or Event":
+                        break;
+
+                }
+
+
+
+//                Toast.makeText(
+//                       getActivity(),
+//                        listDataHeader.get(groupPosition)
+//                                + " : "
+//                                + listDataChild.get(
+//                                listDataHeader.get(groupPosition)).get(
+//                                childPosition), Toast.LENGTH_SHORT)
+//                        .show();
+
                 return false;
+         }
+
+            private void dialoguebox() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                View view1 = getLayoutInflater().inflate(R.layout.info_show_dialog,null);
+                builder.setView(view1);
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
+
         });
 
         return view;
